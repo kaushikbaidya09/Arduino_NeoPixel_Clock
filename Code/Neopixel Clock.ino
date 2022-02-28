@@ -1,14 +1,13 @@
 /*
-*ARDUINO NEOPIXEL DIGITAL CLOCK
+* ARDUINO NEOPIXEL DIGITAL CLOCK
 *     _     _     _     _
 *    |_|   |_| . |_|   |_|
 *    |_|   |_| . |_|   |_|
 *
-*WS2812B 5V NIOPIXEL ADDRESSABLE LED STRIP
-*DS3231 RTC TIME MODULE
-*IR REMOTE CONTROL
-*PIEZO BUZZER
-*
+* WS2812B 5V NIOPIXEL ADDRESSABLE LED STRIP
+* DS3231 RTC TIME MODULE
+* IR REMOTE CONTROL
+* PIEZO BUZZER
 */
 
 #include<FastLED.h>
@@ -18,26 +17,26 @@
 
 /********************** PINs DECLARATION **********************/
 
-#define NUM_LEDS 58       //Number of LEDS
-#define LED_PIN 2         //LED pin
-#define LEDS_PER_SEG 2    //Number of LEDs on each segment
-#define IRpin 4           //IR sensor pin
-#define Piezo 3
+#define NUM_LEDS  58      // Number of LEDS
+#define LED_PIN   2       // LED pin
+#define LEDS_PER_SEG 2    // Number of LEDs on each segment
+#define IRpin     4       // IR sensor pin
+#define Piezo     3
 
 /******************* IR Recever Match Code ********************/
 
 // Enter your IR Remote key code 
-#define BrightUP    0xF9067F80  //0xC00058
-#define BrightDN  0xFA057F80  //0xC00059
-#define Mode            0xE51A7F80  //0xC0005C
-#define NextColor       0xFC037F80  //0xC0005B
-#define PrevColor       0xFD027F80  //0xC0005A
-#define Play            0xFE017F80
-#define EQ              0xFB047F80
+#define BrightUP      0xF9067F80  //0xC00058
+#define BrightDN      0xFA057F80  //0xC00059
+#define Mode          0xE51A7F80  //0xC0005C
+#define NextColor     0xFC037F80  //0xC0005B
+#define PrevColor     0xFD027F80  //0xC0005A
+#define Play          0xFE017F80
+#define EQ            0xFB047F80
 
 /************************ VARIABLES **************************/
 
-uint8_t bright = 100;   //Default Brightness Level
+uint8_t bright = 100;   // Default Brightness Level
 uint8_t hue = 0;      
 uint8_t ONleds = 0;
 
@@ -46,7 +45,7 @@ CRGB Leds[NUM_LEDS];
 DS3231 clock;
 RTCDateTime dt;
 
-unsigned long lastCode;     //Previous Remote key Pressed
+unsigned long lastCode;     // Previous Remote key Pressed
 unsigned long current = 0;
 int mode = 0;
 
@@ -55,20 +54,20 @@ int digits[] = { 0, (7 * LEDS_PER_SEG), (7 * LEDS_PER_SEG * 2 + 2), (7 * LEDS_PE
 
 // SEVEN SEGMENT DISPLAY DEFINITIONS
 bool seg[14][7] {
-  {false, true,   true,   true,   true,   true,   true},    //ZERO
-  {false, false,  false,  true,   true,   false,  false},   //ONE
-  {true,  false,  true,   true,   false,  true,   true},    //TWO
-  {true,  false,  true,   true,   true,   true,   false},   //THREE
-  {true,  true,   false,  true,   true,   false,  false},   //FOUR
-  {true,  true,   true,   false,  true,   true,   false},   //FIVE
-  {true,  true,   true,   false,  true,   true,   true},    //SIX
-  {false, false,  true,   true,   true,   false,  false},   //SEVEN
-  {true,  true,   true,   true,   true,   true,   true},    //EIGHT
-  {true,  true,   true,   true,   true,   true,   false},   //NINE
-  {true,  true,   true,   true,   false,  false,  false},   //Degree
-  {false, true,   true,   false,  false,  true,   true},    //C
-  {true,  true,   true,   true,   false,  false,  false},   //Up O (%)
-  {true,  false,  false,  false,  true,   true,   true}     //Down O (%)
+  {false, true,   true,   true,   true,   true,   true},    // ZERO
+  {false, false,  false,  true,   true,   false,  false},   // ONE
+  {true,  false,  true,   true,   false,  true,   true},    // TWO
+  {true,  false,  true,   true,   true,   true,   false},   // THREE
+  {true,  true,   false,  true,   true,   false,  false},   // FOUR
+  {true,  true,   true,   false,  true,   true,   false},   // FIVE
+  {true,  true,   true,   false,  true,   true,   true},    // SIX
+  {false, false,  true,   true,   true,   false,  false},   // SEVEN
+  {true,  true,   true,   true,   true,   true,   true},    // EIGHT
+  {true,  true,   true,   true,   true,   true,   false},   // NINE
+  {true,  true,   true,   true,   false,  false,  false},   // Degree
+  {false, true,   true,   false,  false,  true,   true},    // C
+  {true,  true,   true,   true,   false,  false,  false},   // Up O (%)
+  {true,  false,  false,  false,  true,   true,   true}     // Down O (%)
 };
 
 /************************ SKETCH **************************/
@@ -254,7 +253,8 @@ void setDisplay() {
   FastLED.show();
 }
 
-//************ COMMUNICATION PROTOCOL ************//
+/******************** IR REMOTE CONTROL ********************/
+
 void FastRemote() {
   if (IrReceiver.decode()) {
     Serial.println(IrReceiver.decodedIRData.decodedRawData, HEX);
@@ -268,7 +268,7 @@ void FastRemote() {
     }
 
     switch (IrReceiver.decodedIRData.decodedRawData) {
-      //****** BRIGHTNESS CHANGE ******//
+      /****** BRIGHTNESS CHANGE ******/
       case BrightUP:
         if (bright < 250) {
           bright += 5;
@@ -287,7 +287,7 @@ void FastRemote() {
         }
         break;
 
-      /****** MENU CHANGE ******/
+      /****** MODE CHANGE ******/
       case Mode:
         ring('T');
         if (mode == 0) {
