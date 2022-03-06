@@ -32,7 +32,6 @@
 #define NextColor     0xFC037F80  //0xC0005B
 #define PrevColor     0xFD027F80  //0xC0005A
 #define Play          0xFE017F80
-#define EQ            0xFB047F80
 
 /************************ VARIABLES **************************/
 
