@@ -15,13 +15,14 @@
 #include <DS3231.h>
 #include <IRremote.h>
 
+#define NUM_LEDS  58      // Number of LEDS
+#define LEDS_PER_SEG 2    // Number of LEDs on each segment
+
 /********************** PINs DECLARATION **********************/
 
-#define NUM_LEDS  58      // Number of LEDS
 #define LED_PIN   2       // LED pin
-#define LEDS_PER_SEG 2    // Number of LEDs on each segment
 #define IRpin     4       // IR sensor pin
-#define Piezo     3
+#define Piezo     3       // Buzzer pin
 
 /******************* IR Recever Match Code ********************/
 
