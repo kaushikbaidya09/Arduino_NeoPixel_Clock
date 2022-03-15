@@ -1,3 +1,4 @@
+#include <Arduino.h>
 /*
 * ARDUINO NEOPIXEL DIGITAL CLOCK
 *     _     _     _     _
@@ -141,14 +142,6 @@ void setup() {
 
 }
 
-void loop() {
-  EVERY_N_MILLISECONDS(250) { //Updates every 0.25sec
-    FastRemote();    
-    setDisplay();
-    if (clock.isAlarm1()) // Rings when Alarm Triggered
-      ring('A');
-  }
-}
  // Pizo Buzzer events Tones
 void ring(char Tone) {
   if (Tone == 'T') {      // Beep
@@ -305,5 +298,14 @@ void FastRemote() {
         //Serial.println(F("UnknownIR"));
         break;
     }
+  }
+}
+
+void loop() {
+  EVERY_N_MILLISECONDS(250) { //Updates every 0.25sec
+    FastRemote();    
+    setDisplay();
+    if (clock.isAlarm1()) // Rings when Alarm Triggered
+      ring('A');
   }
 }
