@@ -22,4 +22,6 @@
 ## Images
 
 ![Image link](https://github.com/kaushikbaidya09/Arduino_NeoPixel_Clock/blob/main/Pic/image1.jpg?raw=true)
+
+
 ![Image link](https://github.com/kaushikbaidya09/Arduino_NeoPixel_Clock/blob/main/Pic/image2.jpg?raw=true)
