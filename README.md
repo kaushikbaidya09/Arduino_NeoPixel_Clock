@@ -1,8 +1,6 @@
-# Arduino_NeoPixel_Clock
-* This project used DS3231 Precise Real Time Clock with Arduino.
-* With Addressable Neopixel RGB LEDs Displayed Time colors are customizable.
-* Display can be controlled with IR Remote control.
-* And Pizo Buzzer for alarm and beeps once every hour cycle.
+# README
+
+This project features a digital clock built on an Arduino microcontroller, enhanced with a colorful NeoPixel LED display. It includes an IR remote control for easy adjustments of time and alarms. The clock rings every hour and activates alarms, providing both visual and audible timekeeping. Ideal for personal use or as a fun DIY project, this clock combines functionality with an eye-catching design.
 
 # Hardware
 * Arduino Pro Mini
